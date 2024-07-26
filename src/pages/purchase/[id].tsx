@@ -247,6 +247,7 @@ export default function Id() {
               <FlatList list={seats}
                         renderItem={(seat: SeatType, index) => <SeatItem key={seat.id}
                                                                          id={seat.id}
+                                                                         seatNumber={seat.seatNumber}
                                                                          auditoriumName={selectedAuditoriumState?.name || 'Sala A'}
                                                                          index={index}
                                                                          isSelected={!!selectedSeats.find(id => seat.id === id)}

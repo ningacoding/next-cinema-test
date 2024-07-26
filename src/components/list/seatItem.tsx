@@ -7,8 +7,10 @@ export default function SeatItem({
                                    auditoriumName,
                                    onSelect,
                                    isSelected,
+                                   seatNumber,
                                  }: {
   id: number;
+  seatNumber: number;
   index: string;
   auditoriumName: string;
   available: boolean;
@@ -42,7 +44,7 @@ export default function SeatItem({
       </div>
     </div>
     <div className={`text-center ${selected ? 'font-bold' : ''}`}>
-      {`${auditoriumName.replace('Sala ', '')}${id}`}
+      {`${auditoriumName.replace('Sala ', '')}${seatNumber}`}
     </div>
   </div>;
 }
