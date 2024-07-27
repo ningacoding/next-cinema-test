@@ -1,4 +1,6 @@
 import moment from 'moment/moment';
+import MovieFunctionType from '@/types/movie.function.type';
+import MovieFunctionHourItem from '@/components/list/movie.function.hour.item';
 
 export default function MovieCover({
                                      id,
@@ -6,11 +8,13 @@ export default function MovieCover({
                                      coverImageUrl,
                                      durationInMinutes,
                                      onClick,
+                                     movieFunctions,
                                    }: {
   id: number,
   name: string,
   coverImageUrl: string,
   durationInMinutes: number,
+  movieFunctions: MovieFunctionType[],
   onClick: Function,
 }) {
 
@@ -27,8 +31,20 @@ export default function MovieCover({
     <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
       {name}
     </h1>
-    <p className="mt-6 text-lg leading-8 text-gray-600">
-      {`${durationHours}h ${durationMinutes}m`}
-    </p>
+    <div className={'flex justify-center mt-8'}>
+      <div className={'font-bold px-2 pl-6 pt-0.5'}>
+        Funciones
+      </div>
+      {movieFunctions?.map((movieFunction: MovieFunctionType) => <MovieFunctionHourItem key={movieFunction.id}
+                                                                                        movieFunction={movieFunction}/>)}
+    </div>
+    <div className={'flex justify-center mt-8'}>
+      <div className={'font-bold px-2 pl-6'}>
+        Duración
+      </div>
+      <div className={'font-bold px-2 pl-6 text-green-600'}>
+        {`${durationHours}h ${durationMinutes}m`}
+      </div>
+    </div>
   </div>;
 }

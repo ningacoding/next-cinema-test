@@ -74,8 +74,8 @@ export default function Id() {
   }, [movieId]);
 
   useEffect(() => {
-    if (Array.isArray(purchaseResponse) && purchaseResponse.length > 0) {
-      router.push(`/purchase/completed/${movieId}`);
+    if (!!purchaseResponse?.id) {
+      router.push(`/purchase/completed/${purchaseResponse.id}`);
     }
   }, [purchaseResponse]);
 

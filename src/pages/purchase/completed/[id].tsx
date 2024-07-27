@@ -6,27 +6,35 @@ import {useRouter} from 'next/router';
 import React, {useEffect} from 'react';
 import {FaBagShopping, FaCircleCheck} from 'react-icons/fa6';
 import Loader from '@/components/loader';
+import PurchaseHistoryType from '@/types/purchase.history.type';
+import moment from 'moment';
 
 export default function PurchaseCompleted() {
 
   const router = useRouter();
-  const {id: movieFunctionIdQuery} = router.query as { id: string };
-  const movieId = +movieFunctionIdQuery;
+  const {id: purchaseId} = router.query as { id: string };
 
   const {
-    data: movieResponse,
+    data: purchaseHistory,
     trigger: getMovieData,
     isMutating: isMutatingMovie,
-  } = useHttpMutated(`/movies/${movieId}`);
+  }: {
+    data: PurchaseHistoryType;
+    trigger: () => void;
+    isMutating: boolean;
+  } = useHttpMutated(`/movies/purchase/${purchaseId}`);
 
   useEffect(() => {
     getMovieData();
-  }, [movieId]);
+  }, [purchaseId]);
 
   return (
     <MainLayout>
       <div className="bg-white">
-        <div className="mx-auto max-w-2xl lg:max-w-7xl">
+        {!purchaseHistory && <div className="mx-auto max-w-2xl lg:max-w-7xl">
+          <Loader/>
+        </div>}
+        {!!purchaseHistory && <div className="mx-auto max-w-2xl lg:max-w-7xl">
           <div className={'lg:px-8 px-4 pb-12 pt-10 bg-green-500'}>
             <div className={'text-white text-7xl flex mb-4'}>
               <div className={'mx-auto'}>
@@ -37,20 +45,49 @@ export default function PurchaseCompleted() {
               Compra exitosa
             </div>
           </div>
-          {isMutatingMovie && <Loader/>}
-          {!isMutatingMovie && <div className={'lg:px-8 px-4 pb-12 pt-10'}>
+          <div className={'lg:px-8 px-4 pb-12 pt-10'}>
             <div className={'text-center font-bold text-2xl'}>
-              {movieResponse?.name}
+              {purchaseHistory.movieFunction.movie.name}
             </div>
             <div className={'pt-8'}>
               <div className={'flex'}>
                 <img className={'mx-auto'}
-                     src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${movieResponse?.name}`}/>
+                     src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${purchaseHistory?.purchaseId}`}/>
               </div>
 
               <div className={'text-center pt-6'}>
-                Presenta esta entrada 10 minutos antes de la función <br/>y disfruta tu película.
+                Presenta esta entrada y disfruta tu película.
+                <br/>
+                <br/>
+                Asiste en la fecha y hora indicada a continuación:<br/>
+                <span className={'font-bold'}>{moment(purchaseHistory.scheduledDate, 'DD-MM-YYYY').format('DD MMMM YYYY')}</span> a
+                las <span className={'font-bold'}>{purchaseHistory.movieFunction.shownAt}</span>
               </div>
+
+              <div>
+                <div className={'text-center pt-6'}>
+                  <div className={'flex justify-center flex-col mb-8'}>
+                    <div className={'rounded-full w-24 h-24 pt-2 bg-gray-100 mx-auto items-center justify-center'}>
+                      <div className={'text-4xl mb-2'}>
+                        🎥
+                      </div>
+                      <div className={'text-gray-700 font-bold'}>
+                        {purchaseHistory.auditorium.name}
+                      </div>
+                    </div>
+                  </div>
+                  <div className={'text-gray-800 flex justify-center'}>
+                    <div className={'mr-6'}>
+                      Asientos:
+                    </div>
+                    {purchaseHistory.seats.map((seat) => <div key={seat.id}
+                                                              className={'font-bold mr-4'}>
+                      {purchaseHistory.auditorium.name.replace('Sala ', '')}{seat.seatNumber}
+                    </div>)}
+                  </div>
+                </div>
+              </div>
+
               <div className={'text-center pt-6'}>
                 <div className={'text-4xl mb-3'}>
                   🍿
@@ -73,8 +110,8 @@ export default function PurchaseCompleted() {
               </div>
 
             </div>
-          </div>}
-        </div>
+          </div>
+        </div>}
       </div>
     </MainLayout>
   );
