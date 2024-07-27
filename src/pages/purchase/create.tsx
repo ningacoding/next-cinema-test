@@ -20,7 +20,7 @@ export default function Create() {
   const formRef: any = useRef(null);
   const router = useRouter();
 
-  const {hasLoggedIn, isBuyer} = useContext(AuthContext);
+  const {hasLoggedIn} = useContext(AuthContext);
 
   const [name, setName] = useState('');
   const [sku, setSku] = useState('');
@@ -39,12 +39,6 @@ export default function Create() {
       router.push('/login');
     }
   }, [hasLoggedIn]);
-
-  useEffect(() => {
-    if (isBuyer) {
-      router.push('/products');
-    }
-  }, [isBuyer]);
 
   useEffect(() => {
     if (!!data?.id) {
