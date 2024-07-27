@@ -65,7 +65,7 @@ export default function PurchaseCompleted() {
                 <br/>
                 <br/>
                 Asiste en la fecha y hora indicada a continuación:<br/>
-                <span className={'font-bold'}>{moment(purchaseHistory.scheduledDate, 'DD-MM-YYYY').format('DD MMMM YYYY')}</span> a
+                <span className={'font-bold'}>{moment(purchaseHistory.scheduledDate, 'YYYY-MM-DD').format('DD MMMM YYYY')}</span> a
                 las <span className={'font-bold'}>{purchaseHistory.movieFunction.shownAt}</span>
               </div>
 
