@@ -31,7 +31,7 @@ export default function Id() {
   const slideOverRef: any = useRef(null);
   const slideOverHoursRef: any = useRef(null);
   const modalRef = useRef<any>(null);
-  const {hasLoggedIn, isAdmin, isSeller} = useContext(AuthContext);
+  const {hasLoggedIn} = useContext(AuthContext);
   const {selectedAuditoriumId, setSelectedAuditorium} = useContext(AuditoriumsContext);
 
   const [selectedSeats, setSelectedSeats] = useState([]);
@@ -103,12 +103,12 @@ export default function Id() {
   };
 
   const selectMovieFunction = (id: number, isSelected: boolean) => {
-    const selectedItem = movieResponse?.data?.movieFunctions.find((movieFunctions: MovieFunctionType) => movieFunctions.id === id);
+    const selectedItem = movieResponse?.movieFunctions.find((movieFunctions: MovieFunctionType) => movieFunctions.id === id);
     setSelectedMovieFunctionId(selectedItem.id);
     slideOverHoursRef.current?.hide();
   };
 
-  const selectedMovieFunction = movieResponse?.data?.movieFunctions.find((movieFunction: MovieFunctionType) => movieFunction.id === selectedMovieFunctionId);
+  const selectedMovieFunction = movieResponse?.movieFunctions.find((movieFunction: MovieFunctionType) => movieFunction.id === selectedMovieFunctionId);
 
   return (
     <MainLayout>
@@ -139,7 +139,7 @@ export default function Id() {
 
           <SlideOver ref={slideOverHoursRef}
                      title={'Elige un Horario'}>
-            <SlideOverChooser options={movieResponse?.data?.movieFunctions}
+            <SlideOverChooser options={movieResponse?.movieFunctions}
                               isLoading={isLoadingAuditoriums}
                               renderItem={(movieFunction: MovieFunctionType) => {
                                 const isSelected = (selectedMovieFunctionId || 1) === movieFunction.id;
@@ -154,7 +154,7 @@ export default function Id() {
           </SlideOver>
 
           <div className={'mb-12'}>
-            <Header title={`${movieResponse?.data?.name} - ${selectedAuditoriumState?.name || 'Sala A'} a las ${moment(selectedMovieFunction?.shownAt, 'HH:mm').format('h:mm a')}`}>
+            <Header title={`${movieResponse?.name} - ${selectedAuditoriumState?.name || 'Sala A'} a las ${moment(selectedMovieFunction?.shownAt, 'HH:mm').format('h:mm a')}`}>
               <div className={'block lg:flex'}>
                 <div className="flex">
                   <div className="">

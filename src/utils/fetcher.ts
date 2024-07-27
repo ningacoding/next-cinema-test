@@ -26,7 +26,7 @@ const fetcher = async (...args: any[]) => {
     });
     const json = await res.json();
     console.log(!!body ? 'POST' : 'GET', url, accessToken, body, json);
-    return json;
+    return json?.data || json;
   } catch (e) {
     console.log(e);
     return {

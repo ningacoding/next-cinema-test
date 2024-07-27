@@ -40,12 +40,12 @@ export default function PurchaseCompleted() {
           {isMutatingMovie && <Loader/>}
           {!isMutatingMovie && <div className={'lg:px-8 px-4 pb-12 pt-10'}>
             <div className={'text-center font-bold text-2xl'}>
-              {movieResponse?.data?.name}
+              {movieResponse?.name}
             </div>
             <div className={'pt-8'}>
               <div className={'flex'}>
                 <img className={'mx-auto'}
-                     src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${movieResponse?.data?.name}`}/>
+                     src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${movieResponse?.name}`}/>
               </div>
 
               <div className={'text-center pt-6'}>

@@ -8,8 +8,6 @@ export const AuthContext = createContext({
   authEmail: null,
   hasLoggedIn: false,
   isAdmin: false,
-  isBuyer: false,
-  isSeller: false,
 });
 
 // @ts-ignore
@@ -28,8 +26,6 @@ export function Auditoriums({children}: any) {
   const {data, isLoading} = useHttp('/users/me');
   const [authEmail, setAuthEmail] = useState(data?.email);
   const [isAdmin, setIsAdmin] = useState(data?.roleId === RoleEnum.Admin);
-  const [isBuyer, setIsBuyer] = useState(data?.roleId === RoleEnum.Admin);
-  const [isSeller, setIsSeller] = useState(data?.roleId === RoleEnum.Admin);
 
   const [selectedAuditoriumId, setSelectedProvidersId] = useState(1);
   const setSelectedAuditorium: any = (value: SetStateAction<any>) => setSelectedProvidersId(value);
@@ -40,8 +36,6 @@ export function Auditoriums({children}: any) {
 
   useEffect(() => {
     setIsAdmin(data?.roleId === RoleEnum.Admin);
-    setIsBuyer(data?.roleId === RoleEnum.Buyer);
-    setIsSeller(data?.roleId === RoleEnum.Seller);
   }, [data?.roleId]);
 
   if (isLoading) {
@@ -53,8 +47,6 @@ export function Auditoriums({children}: any) {
       hasLoggedIn,
       authEmail,
       isAdmin,
-      isBuyer,
-      isSeller,
     }}>
       <AuditoriumsContext.Provider value={{
         selectedAuditoriumId,
