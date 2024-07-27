@@ -146,7 +146,7 @@ export default function Id() {
                                 return <SlideOverChooserItem key={movieFunction.id}
                                                              removeAvatar
                                                              id={movieFunction.id}
-                                                             name={moment(movieFunction.shownAt, 'HH:mm').format('h:mm a')}
+                                                             name={movieFunction.shownAt}
                                                              isSelected={isSelected}
                                                              onClick={() => selectMovieFunction(movieFunction.id, isSelected)}
                                 />;
@@ -154,7 +154,7 @@ export default function Id() {
           </SlideOver>
 
           <div className={'mb-12'}>
-            <Header title={`${movieResponse?.name} - ${selectedAuditoriumState?.name || 'Sala A'} a las ${moment(selectedMovieFunction?.shownAt, 'HH:mm').format('h:mm a')}`}>
+            <Header title={`${movieResponse?.name} - ${selectedAuditoriumState?.name || 'Sala A'} a las ${selectedMovieFunction?.shownAt}`}>
               <div className={'block lg:flex'}>
                 <div className="flex">
                   <div className="">
