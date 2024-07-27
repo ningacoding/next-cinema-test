@@ -17,7 +17,7 @@ export default function PurchaseCompleted() {
   const {
     data: purchaseHistory,
     trigger: getMovieData,
-    isMutating: isMutatingMovie,
+    isMutating,
   }: {
     data: PurchaseHistoryType;
     trigger: () => void;
@@ -28,13 +28,18 @@ export default function PurchaseCompleted() {
     getMovieData();
   }, [purchaseId]);
 
+  const isLoading = isMutating && !purchaseHistory;
+
   return (
     <MainLayout>
       <div className="bg-white">
-        {!purchaseHistory && <div className="mx-auto max-w-2xl lg:max-w-7xl">
+        {isLoading && <div className="mx-auto max-w-2xl lg:max-w-7xl">
           <Loader/>
         </div>}
-        {!!purchaseHistory && <div className="mx-auto max-w-2xl lg:max-w-7xl">
+        {!isLoading && !purchaseHistory && <div>
+          LA SOLICITUD ES INVÁLIDA
+        </div>}
+        {!isLoading && !!purchaseHistory && <div className="mx-auto max-w-2xl lg:max-w-7xl">
           <div className={'lg:px-8 px-4 pb-12 pt-10 bg-green-500'}>
             <div className={'text-white text-7xl flex mb-4'}>
               <div className={'mx-auto'}>
