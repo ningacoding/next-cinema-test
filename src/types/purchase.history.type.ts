@@ -8,4 +8,5 @@ export default interface PurchaseHistoryType {
   seats: SeatType[];
   movieFunction: MovieFunctionType;
   auditorium: AuditoriumType;
+  statusCode: number;
 }

@@ -8,6 +8,7 @@ import {FaBagShopping, FaCircleCheck} from 'react-icons/fa6';
 import Loader from '@/components/loader';
 import PurchaseHistoryType from '@/types/purchase.history.type';
 import moment from 'moment';
+import ErrorBodyMessage from '@/components/error.body.message';
 
 export default function PurchaseCompleted() {
 
@@ -29,6 +30,7 @@ export default function PurchaseCompleted() {
   }, [purchaseId]);
 
   const isLoading = isMutating && !purchaseHistory;
+  const hasError = !isNaN(purchaseHistory?.statusCode);
 
   return (
     <MainLayout>
@@ -36,10 +38,8 @@ export default function PurchaseCompleted() {
         {isLoading && <div className="mx-auto max-w-2xl lg:max-w-7xl">
           <Loader/>
         </div>}
-        {!isLoading && !purchaseHistory && <div>
-          LA SOLICITUD ES INVÁLIDA
-        </div>}
-        {!isLoading && !!purchaseHistory && <div className="mx-auto max-w-2xl lg:max-w-7xl">
+        {hasError && <ErrorBodyMessage/>}
+        {!hasError && !!purchaseHistory && <div className="mx-auto max-w-2xl lg:max-w-7xl">
           <div className={'lg:px-8 px-4 pb-12 pt-10 bg-green-500'}>
             <div className={'text-white text-7xl flex mb-4'}>
               <div className={'mx-auto'}>
