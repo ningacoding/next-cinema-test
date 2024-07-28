@@ -3,17 +3,19 @@
 import MainLayout from '@/components/main.layout';
 import {useHttpMutated} from '@/utils/http';
 import {useRouter} from 'next/router';
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {FaBagShopping, FaCircleCheck} from 'react-icons/fa6';
 import Loader from '@/components/loader';
 import PurchaseHistoryType from '@/types/purchase.history.type';
 import moment from 'moment';
 import ErrorBodyMessage from '@/components/error.body.message';
+import {AuthContext} from '@/app/auditoriums';
 
 export default function PurchaseCompleted() {
 
   const router = useRouter();
   const {id: purchaseId} = router.query as { id: string };
+  const {authEmail} = useContext(AuthContext);
 
   const {
     data: purchaseHistory,
@@ -93,6 +95,10 @@ export default function PurchaseCompleted() {
                 </div>
               </div>
 
+              <div className={'text-center px-6 py-2 bg-green-100 text-green-600 mt-6 rounded'}>
+                Se ha enviado un recibo con esta información al correo <b>{authEmail}</b>
+              </div>
+
               <div className={'text-center pt-6'}>
                 <div className={'text-4xl mb-3'}>
                   🍿
@@ -120,4 +126,4 @@ export default function PurchaseCompleted() {
       </div>
     </MainLayout>
   );
-};
+}
