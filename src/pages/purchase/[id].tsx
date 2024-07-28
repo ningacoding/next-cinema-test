@@ -156,8 +156,8 @@ export default function Id() {
           <div className={'mb-12'}>
             <Header title={`${movieResponse?.name} - ${selectedAuditoriumState?.name || 'Sala A'} a las ${selectedMovieFunction?.shownAt}`}>
               <div className={'block lg:flex'}>
-                <div className="flex">
-                  <div className="">
+                <div className="sm:flex">
+                  <div className="sm:ml-3 sm:m-0 m-4">
                     <button
                       type="button"
                       className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
@@ -168,7 +168,7 @@ export default function Id() {
                       <p>Cambiar de Sala</p>
                     </button>
                   </div>
-                  <div className="ml-3">
+                  <div className="sm:ml-3 sm:m-0 m-4">
                     <button
                       type="button"
                       className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
@@ -179,7 +179,7 @@ export default function Id() {
                       <p>Cambiar de Horario</p>
                     </button>
                   </div>
-                  <div className="ml-3">
+                  <div className="sm:ml-3 sm:m-0 m-4">
                     <Datepicker value={moment().toDate()}
                                 minDate={moment().toDate()}
                                 format={'d MMMM YYYY'}
@@ -241,7 +241,7 @@ export default function Id() {
             </div>
           </div>
 
-          <div className="mt-6 grid gap-x-6 gap-y-10 grid-cols-5 xl:gap-x-8">
+          <div className="mt-6 grid sm:gap-x-6 sm:gap-y-10 gap-x-2 gap-y-4 grid-cols-5 xl:gap-x-8">
             {isMutating && <Loader/>}
             {!isMutating &&
               <FlatList list={seats}
